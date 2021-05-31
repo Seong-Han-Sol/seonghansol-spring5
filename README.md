@@ -1,3 +1,13 @@
+#### 20210531(월) 작업예정.
+- 오라클 : 테이블스페이스(TableSpace) = 스키마(Scheme) = 데이터베이스(DB)
+- 지난주 금요일날, 오라클 웹용 관리프로그램에서 XE라는 테이블스페이스를 XE 사용자로 추가했음.
+- EntityRelationDiagram(ERD-객체관계그림) : Entity는 테이블을 명칭
+- 설치시 암호는 apmsetup 로 통일
+- -4장 패키지와 예외처리 실습
+- 스프링프로젝트 ERD 제작 후 게시판 UI디자인 적용.
+- 데이터 모델 : Model Object를 형상화 시킨것
+- RDBMS : RelationDataBaseManagementSystem(관계형데이타베이스관리시스템)
+
 #### 20210528(금) 작업예정.
 - 오라클11g ExpressEditon 설치예정. OracleXe112_Win64.zip
 - SQL 디벨러퍼를 다운받아서 압축풀기 -ERD제작할 예정.
@@ -12,7 +22,7 @@
 - 자바앱에서는 객체를 생성후 사용이 끝나면, 메모리에서 삭제하는 명령이 필수.
 - 객체를 메모리에서 삭제: Object = null;
 - 스프링에서는 내장된 가비지컬렉터(garbage쓰레기수집가)가 자동으로 실행
-- 위와 같이 개발자가 하던 메모리관리를 스프링이 대신 =IoC(Inversion Of Control)제어의 역전. 스프링 특징3가지(Ioc,AOP,DI)
+- 위와 같이 개발자가 하던 메모리관리를 스프링이 대신 =IoC(Inversion Of Control)제어의 역전. 스프링 특징3가지(IoC,AOP,DI)
 -  
 
 #### 20210527(목) 작업.
