@@ -2,7 +2,9 @@ package com.edu.test;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
@@ -13,7 +15,6 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-
 /**
  *  이 클래스는 오라클과 연동해서 CRUD를 테스트하는 클래스 입니다.
  *  과장(이사,팀장) JUnit CRUD까지 만들어서 일반사원에게 공개 + 회원관리
@@ -31,8 +32,8 @@ public class DataSourceTest {
 	//dataSource 객체는 데이터베이스 객체를 pool로 저장해서 사용할 때 DataSource라는 클래스를 사용(아래)
 	@Inject //인젝트는 스프링에서 객체를 만드는 방법, 이전 자바에서는 new 키워드로 객체를 만들었고...
 	DataSource dataSource; //Inject로 객체를 만들면 메모리 관리를 스프링이 대신 해준다.
-	//Inject 자바 8부터 지원 이전 자바7버전에서는 @AutoWired로 객체를 만들었음.
 	
+	//Inject 자바 8부터 지원 이전 자바7버전에서는 @AutoWired로 객체를 만들었음.
 	@Test
 	public void oldQueryTest() throws Exception {
 		//스프링빈을 사용하지 않을때 예전 방식 :코딩 테스트에서는 스프링설정을 아 ㄴ쓰고, 직접 DB 아이디/암호 입력
@@ -40,6 +41,24 @@ public class DataSourceTest {
 		connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/XE", "XE", "apmsetup");
 		logger.debug("데이터베이스 직접 접속이 성공 했습니다. DB종류는" +
 				connection.getMetaData().getDatabaseProductName());
+		//직접쿼리를 날립니다
+		Statement stmt = connection.createStatement();
+		//위 쿼리문장객체를 만드는 이유? 보안(SQL인젝션 공격을 방지)
+		//stmt 객체가 없으면, 개발자가 SQL인젝션 방지코딩을 넣어야 합니다.
+		//Insert쿼리 문장 만듬(아래)
+		//예전 방식으로 더미데이터(샘플데이터)를 100개 입력합니다.
+		for(int cnt=0;cnt<100;cnt++) {
+			stmt.executeQuery("insert into dept02 values("+cnt+", '디자인부', '경기도')");
+		}
+		
+		//테이블에 입력되어 있는 레코드를 select 쿼리 stmt문장으로 가져옴 (아래)
+		ResultSet rs = stmt.executeQuery("select * from dept02 order by deptno"); //20년전 작업방식
+		//위에서 저장된 rs 객체를 반복문으로 출력(아래)
+		while(rs.next()) {
+			//rs객체의 레코드가 없을때까지 반복
+			logger.debug(rs.getString("deptno")+" "+rs.getString("dname")+
+					" "+rs.getString("loc"));
+		}
 		connection = null; //메모리 초기화
 	}
 	@Test
