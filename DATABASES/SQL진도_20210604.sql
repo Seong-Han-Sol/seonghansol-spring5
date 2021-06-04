@@ -19,4 +19,13 @@ SELECT * FROM dept02 ORDER BY deptno;
 --DELETE는 레코드 1줄을 지우는 명령
 DELETE FROM dept02; --이렇게 사용하면 X 모든 레코드가 삭제되니 주의해야한다 
 DELETE FROM dept02 WHERE deptno >= 0; --모두 삭제를 하려해도 where문은 반드시 포함
-COMMIT;
+--DROP table 테이블명은 테이블 자체를 물리적으로 없애는 명령
+DROP TABLE dept02; --드롭 테이블은 커밋없이 바로 적용됨.
+CREATE TABLE emp01 AS SELECT * FROM emp; --테이블 복제명령
+SELECT * FROM emp01;
+--UPDATE 테이블명 SET 필드명 = '바꿀값' where empno='특정ID'
+UPDATE emp01 SET ename = '홍길동' WHERE empno = 7839;
+ROLLBACK; --DCL문 롤백은 마지막 커밋 바로전까지 되돌린다.
+UPDATE emp01 SET sal = sal*1.1; --모든 직원연봉을 10%인상
+UPDATE emp01 SET hiredate = sysdate;
+--머지 표준쿼리 (ANSI)가 아니라서 건너뜀.
