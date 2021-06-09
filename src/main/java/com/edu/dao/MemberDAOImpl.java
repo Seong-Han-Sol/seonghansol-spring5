@@ -14,7 +14,7 @@ import com.edu.vo.PageVO;
  * 이 클래스는 IF_memberDAO 인터페이스를 구현하는 클래스 입니다.
  * implements 키워드로 상속을 받습니다.
  * 단, DAO기능의 구현클래스는 스프링빈으로 등록이 필요. 그래서, @Repository
- * @author User
+ * @author 성한솔
  *
  */
 @Repository
@@ -34,6 +34,19 @@ public class MemberDAOImpl implements IF_MemberDAO{
 		// SqlSession빈의 메서드를 이용해서 매퍼 쿼리를 실행(아래)
 		int totalCount = sqlSession.selectOne("memberMapper.countMember");
 		return totalCount;
+	}
+
+	@Override
+	public void insertMember(MemberVO memberVO) throws Exception {
+		// sqlSession빈의 메서드를 이용해서 매퍼 쿼리를 실행(아래)
+		sqlSession.insert("memberMapper.insertMember", memberVO);
+	}
+
+	@Override
+	public void deleteMember(String user_id) throws Exception {
+		// splSession
+		sqlSession.delete("memberMapper.deleteMember", user_id);
+		
 	}
 
 }

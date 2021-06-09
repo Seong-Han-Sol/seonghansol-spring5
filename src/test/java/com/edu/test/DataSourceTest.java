@@ -42,6 +42,25 @@ public class DataSourceTest {
 	@Inject //MemberService서비스를 주입받아서 객체를 사용합니다.(아래)
 	private IF_MemberService memberService;
 	
+	@Test
+	public void deleteMember() throws Exception {
+		memberService.deleteMember("user_del");
+		selectMember();
+	}
+	@Test
+	public void insertMember() throws Exception {
+		MemberVO memberVO = new MemberVO();
+		//insert쿼리에 저장할 객체
+		memberVO.setUser_id("user_del");
+		memberVO.setUser_pw("1234"); //스프링시큐리티 중 512바이트 암호화로 처리 예정
+		memberVO.setEmail("user@test.com");
+		memberVO.setPoint(10);
+		memberVO.setEnabled(true);
+		memberVO.setLevels("ROLE_USER");
+		memberVO.setUser_name("삭제할사용자");
+		memberService.insertMember(memberVO);
+		selectMember();
+	}
 	//스프링 코딩 작업 순서(칠판으로 옮겨 놓았습니다.)
 	@Test
 	public void selectMember() throws Exception {
@@ -53,14 +72,13 @@ public class DataSourceTest {
 		//PageVO만들기전 SQL쿼리로 가상으로 페이지을 한번 구현해 보면서, 필요한 변수 만들어야 합니다.
 		//pageVO 객체를 만들어서 가상으로 초기값을 입력합니다.(아래)
 		PageVO pageVO = new PageVO();
-
-		pageVO.setPage(1); //기본값으로 1페이지를 입력합니다.
-		pageVO.setPerPageNum(10); //UI하단의 페이지 개수
-		pageVO.setQueryPerPageNum(10); //쿼리사용 페이지당 개수
+		
+		pageVO.setPage(1);//기본값으로 1페이지를 입력합니다.
+		pageVO.setPerPageNum(10);//UI하단사용 페이지 개수
+		pageVO.setQueryPerPageNum(10);//쿼리사용 페이지당 개수
 		pageVO.setTotalCount(memberService.countMember());//테스트하려고, 100명을 입력합니다.
-		pageVO.setSearch_keyword("admin");
-		pageVO.setSearch_type("user_id"); //검색타입 all, user_id, user_name
-		pageVO.setSearch_keyword("admin");//검색어
+		pageVO.setSearch_type("user_id");//검색타입 all, user_id, user_name
+		pageVO.setSearch_keyword("user_del");//검색어
 		//위 setTotalCount 위치가 다른 설정보다 상단이면, 에러발생 왜냐하면, calpage()가 실행되는데, 실행시 위 3가지 변수 값이 지정되어 있어야지 계산 메서드가 정상작동되기 때문입니다.
 		//위 토탈카운트 변수값은 startPage, endPage계산에 필수입니다.
 		//위 위치가 다른 설정보다 상단이면, 에러발생 왜냐하면, calcPage()가 실행되는데, 실행시 위 3가지 변수값이 저장되 있어야지 계산메서드가 정상 작동되기 때문
