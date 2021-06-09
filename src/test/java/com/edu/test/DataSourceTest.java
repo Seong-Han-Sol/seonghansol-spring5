@@ -19,6 +19,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.edu.service.IF_MemberService;
 import com.edu.vo.MemberVO;
+import com.edu.vo.PageVO;
 
 /**
  * 이 클래스는 오라클과 연동해서 CRUD를 테스트하는 클래스 입니다.
@@ -41,20 +42,31 @@ public class DataSourceTest {
 	@Inject //MemberService서비스를 주입받아서 객체를 사용합니다.(아래)
 	private IF_MemberService memberService;
 	
-	//스프링 코딩 시작 순서
-		// M-V-C 사이에 데이터를 임시 저장하는 공간(VO클래스-멤버변수+GET/Set메서드) 생성
-		// 보통 ValueObject클래스는 DB테이블과 1:1로 매칭이 됩니다.
-		//그래서, 1. MemberVO.java VO클래스를 생성. (필수)
-		//2. DB(마이바티스)쿼리를 만듭니다. (VO사용됨)
+	//스프링 코딩 작업 순서(칠판으로 옮겨 놓았습니다.)
 	@Test
 	public void selectMember() throws Exception {
 		//회원관리 테이블에서 더미로 입력한 100개의 레코드를 출력 메서드 테스트->회원관리목록이 출력
-		//현재100명 검색기능, 페이징기능 여기서 구현. 1페이지에 10명씩 나오게 변경
-		//현재 몇페이지, 검색어 임시저장 공간 -> DB에 페이징 조건문, 검색 조건문
-		//변수를 2-3이상은 바로 String변수로 처리하지 않고, VO만들어 사용.
-		//PageVO.java 페이징처리변수와 검색어 변수 선언, Get/Set생성
-		//PageVO 만들기 전 SQL쿼리로 가상으로 페이지를 한번 구현해 보면서, 필요한 변수를 만들어야 한다.
-		List<MemberVO> listMember = memberService.selectMember();
+		//현재100명 검색기능, 페이징기능 여기서 구현. 1페이지에 10명씩 나오게변경
+		//현재 몇페이지, 검색어 임시저장 공간 -> DB에 페이징조건문, 검색조건문
+		//변수를 2-3이상은 바로 String변수로 처리하지않고, VO만들어 사용.
+		//PageVO.java클래스를 만들어서 페이징처리변수와 검색어변수 선언,Get/Set생성
+		//PageVO만들기전 SQL쿼리로 가상으로 페이지을 한번 구현해 보면서, 필요한 변수 만들어야 합니다.
+		//pageVO 객체를 만들어서 가상으로 초기값을 입력합니다.(아래)
+		PageVO pageVO = new PageVO();
+
+		pageVO.setPage(1); //기본값으로 1페이지를 입력합니다.
+		pageVO.setPerPageNum(10); //UI하단의 페이지 개수
+		pageVO.setQueryPerPageNum(10); //쿼리사용 페이지당 개수
+		pageVO.setTotalCount(memberService.countMember());//테스트하려고, 100명을 입력합니다.
+		pageVO.setSearch_keyword("admin");
+		pageVO.setSearch_type("user_id"); //검색타입 all, user_id, user_name
+		pageVO.setSearch_keyword("admin");//검색어
+		//위 setTotalCount 위치가 다른 설정보다 상단이면, 에러발생 왜냐하면, calpage()가 실행되는데, 실행시 위 3가지 변수 값이 지정되어 있어야지 계산 메서드가 정상작동되기 때문입니다.
+		//위 토탈카운트 변수값은 startPage, endPage계산에 필수입니다.
+		//위 위치가 다른 설정보다 상단이면, 에러발생 왜냐하면, calcPage()가 실행되는데, 실행시 위 3가지 변수값이 저장되 있어야지 계산메서드가 정상 작동되기 때문
+		//위 토탈카운트 변수 값은 startpage, endpage 계산에 필수입니다. 
+		logger.info("디버그"+ pageVO.toString());
+		List<MemberVO> listMember = memberService.selectMember(pageVO);
 		listMember.toString();
 	}
 	
