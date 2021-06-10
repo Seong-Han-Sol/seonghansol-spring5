@@ -9,15 +9,15 @@
   <!-- Google Font: Source Sans Pro 구글웹폰트 -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome 폰트어썸 -->
-  <link rel="stylesheet" href="resources/admin/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="/resources/admin/plugins/fontawesome-free/css/all.min.css">
   <!-- Tempusdominus Bootstrap 4 부트스트랩4 -->
-  <link rel="stylesheet" href="resources/admin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <link rel="stylesheet" href="/resources/admin/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <!-- Theme style AdminLTE 테마스타일 -->
   <link rel="stylesheet" href="/resources/admin/dist/css/adminlte.min.css">
   <!-- overlayScrollbars 왼쪽스크롤메뉴 -->
-  <link rel="stylesheet" href="resources/admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <link rel="stylesheet" href="/resources/admin/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- summernote 웹에디터 -->
-  <link rel="stylesheet" href="resources/admin/plugins/summernote/summernote-bs4.min.css">
+  <link rel="stylesheet" href="/resources/admin/plugins/summernote/summernote-bs4.min.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -49,7 +49,7 @@
     </ul>
   </nav>
   <!-- /.navbar -->
- 
+
   <!-- Main Sidebar Container 왼쪽 사이드메뉴내용 -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -63,7 +63,7 @@
       <!-- Sidebar user panel (optional) 로그인한 정보 -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="/resources/admin/dist/img/user3-128x128.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="/resources/admin/dist/img/avatar3.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">로그인한 ID</a>
@@ -98,7 +98,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="/admin/member/member_list" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>관리자관리</p>
             </a>
@@ -139,5 +139,4 @@
     </div>
     <!-- /.sidebar -->
   </aside>
- <!-- 여기까지가 header.jsp부분 -->
-  
+<!-- 여기까지 header.jsp영역 -->

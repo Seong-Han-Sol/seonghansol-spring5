@@ -21,22 +21,23 @@
 </div>
 <!-- ./wrapper -->
 <!-- jQuery 제이쿼리 코어 -->
-<script src="resources/admin/plugins/jquery/jquery.min.js"></script>
+<script src="/resources/admin/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 제이쿼리 UI코어 -->
-<script src="resources/admin/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="/resources/admin/plugins/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button)
 </script>
 <!-- Bootstrap 4 부트스트랩4 코어 -->
-<script src="resources/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/resources/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- Summernote 섬머노트웹에디터 코어 -->
-<script src="resources/admin/plugins/summernote/summernote-bs4.min.js"></script>
+<script src="/resources/admin/plugins/summernote/summernote-bs4.min.js"></script>
 <!-- overlayScrollbars 왼쪽스크롤메뉴 코어 -->
-<script src="resources/admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<script src="/resources/admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App AdminLTE코어 -->
 <script src="/resources/admin/dist/js/adminlte.js"></script>
 <!-- AdminLTE for demo purposes 오른쪽메뉴-로그아웃사용 코어: 사용안함. -->
 <!-- <script src="/resources/admin/dist/js/demo.js"></script> -->
 </body>
-</html>	
+</html>
+    
