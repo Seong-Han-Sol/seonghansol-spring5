@@ -42,10 +42,14 @@
 <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
    </beans:bean>
 ```
+- GET : Insert(외부 사이트 입력폼에서도 입력가능)
+- POST : Insert(외부사이트에서 입력가능 
 - 데이터변수를 전송할때 GET(URL쿼리스트링)으로 전송받으면, 타 도메인에서도 GET으로 접근이 가능합니다.
 - 쉽게 말하면, 다른 도메인(서버)에서 GET은 검색만 가능, 입력/수정/삭제 불가능
 - 단, 데이터변수를 POST(숨김)으로 전송받으면, 타 도메인에서는 접근이 불가능합니다.
 - 쉽게 말하면, 같은 도메인(서버)에서만 POST로는 입력/수정/삭제 가 가능
+- 웹프로그램은 보안 때문에 외부 도메인에서 컨트롤러에서 지정한 GET방식의 URL로 접근해서 데이터 출력이 가능.
+- 단, 입력수정삭제 기능은 GET방식으로 못하고 POST방식으로 지정 -> 다른 도메인(서버)에서 회원가입을 못하도록 서버단에서 에러를 발생시킴
 - 나머지 관리자 회원관리 CRUD 화면 JSP구현 update, delete(OK) , insert
 - [공지]06-17 목요일(4교시) UI 디자인 시험 있습니다.(화면기획서XLS제작, 화면설계서PPT제출용)
 - 관리자 게시판 생성관리 CRUD 정방향 방식으로 JSP구현.
