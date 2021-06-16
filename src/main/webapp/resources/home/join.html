@@ -6,27 +6,27 @@
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <!-- 제이쿼리 코어 임포트 가져오기(아래) -->
-<script src="/resources/home/js/jquery-3.6.0.js"></script>
+<script src="/home/js/jquery-3.6.0.js"></script>
 <!-- 상단바로가기 클릭시 부드럽게 이동하는 외부 라이브러리 JS 임포트(아래) -->
-<script src="/resources/home/js/jquery.smooth-scroll.min.js"></script>
+<script src="/home/js/jquery.smooth-scroll.min.js"></script>
 <!-- 화면을 초기화 시키는 reset 스타일 임포트:크로스브라이징 처리하기위해서 -->
 <!-- 크롬, IE, 엣지, 사파리, 파이어폭스 h1, p, ul, div 태그의 크기가 조금씩 틀림니다. -->
 <!-- 작업한 결과가 모든 브라우져(크로싱브라우징)에 똑같이 보이게 하기 위한 reset.css(아래) -->
-<link rel="stylesheet" href="/resources/home/css/reset.css">
+<link rel="stylesheet" href="/home/css/reset.css">
 <!-- 여기서 부터 사용자 정의형 스타일 + 스크립트 추가(아래) -->
-<link rel="stylesheet" href="/resources/home/css/mobile.css">
+<link rel="stylesheet" href="/home/css/mobile.css">
 <!-- 테블릿용 CSS 임포트 -->
-<link rel="stylesheet" href="/resources/home/css/tablet.css">
+<link rel="stylesheet" href="/home/css/tablet.css">
 <!-- PC용 CSS 임포트 -->
-<link rel="stylesheet" href="/resources/home/css/pc.css">
-<!-- 게시판용 CSS임포트 -->
-<link rel="stylesheet" href="/resources/home/css/board.css">
-<script src="/resources/home/js/main.js"></script>
+<link rel="stylesheet" href="/home/css/pc.css">
+<!-- 게시판용 CSS 임포트 -->
+<link rel="stylesheet" href="/home/css/board.css">
+<script src="/home/js/main.js"></script>
 <!-- 메인슬라이드 코어 임포트 -->
-<script src="/resources/home/js/slidemain.js"></script>
-<!-- html5가 아닌 JS로 유효성 검사 코어2개 임포트 -->
-<script src="/resources/home/js/jquery.validate.js"></script>
-<script src="/resources/home/js/additional-methods.js"></script>
+<script src="/home/js/slidemain.js"></script>
+<!-- html5가 아닌 JS로 유효성 검사 코어 2개 임포트 -->
+<script src="/home/js/jquery.validate.js"></script>
+<script src="/home/js/additional-methods.js"></script>
 <style>
 /* 모바일용 로그인 스타일 */
 
@@ -41,9 +41,23 @@
 }
 </style>
 <script>
-// 메인페이지 전용 슬라이드 호출 부분
+// 회원가입 전용 유효성 검사 부분
 $(document).ready(function() {
-	
+	$('.appForm').validate({
+		rules:{
+			password:"required",//password 인풋태그의 이름,입력값 공백체크
+			password_chk: {     //password_chk 인풋태그의 이름.
+				equalTo:'#password_lbl'//input 태그의 id값과 비교
+			}
+		}
+	});
+	// 유효성검사 확인 메세지를 한글로 출력하기
+	$.extend($.validator.messages, {
+		required:"필수 항목 입니다.",
+		email: "유효하지 않는 Email 주소 입니다.",
+		digits: "숫자만 입력 가능합니다.",
+		equalTo: "비밀번호가 일치하지 않습니다."
+	});
 });
 </script>
 </head>
@@ -132,7 +146,9 @@ $(document).ready(function() {
 					</li>
 					<li class="clear">
 						<label for="password_lbl" class="tit_lbl pilsoo_item">비밀번호</label>
-						<div class="app_content"><input type="password" name="password" class="w100p" id="password_lbl" placeholder="비밀번호를 입력해주세요" required/></div>
+						<div class="app_content">
+							<input type="password" name="password" class="w100p" id="password_lbl" placeholder="비밀번호를 입력해주세요" required/>
+						</div>
 					</li>
 					<li class="clear">
 						<label for="password_chk_lbl" class="tit_lbl pilsoo_item">비밀번호확인</label>
