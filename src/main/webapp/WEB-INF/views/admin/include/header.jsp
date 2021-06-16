@@ -63,7 +63,7 @@
       <!-- Sidebar user panel (optional) 로그인한 정보 -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="/resources/admin/dist/img/user3-128x128.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="/resources/admin/dist/img/avatar3.png" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">로그인한 ID</a>
@@ -104,7 +104,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="/admin/bbs_type/bbs_type_list" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>게시판생성관리</p>
             </a>
