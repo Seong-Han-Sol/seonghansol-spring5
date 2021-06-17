@@ -37,9 +37,9 @@
           <form name="form_write" method="post" action="/admin/bbs_type/bbs_type_update" enctype="multipart/form-data">
             <div class="card-body">
               <div class="form-group">
-              <!-- PK고유키, 식별자는 수정할 수 있으면, 여기 묶여있는 하위 게시물들은 소속을 잃어 버립니다. 그래서 수정불가 X -->
+                <!-- PK고유키,식별자는 수정할수 있으면, 여기 묶여있는 하위 게시물들은 소속잃어 버립니다. 그래서, 수정불가X  -->
                 <label for="board_type">게시판타입</label>
-                <input value="${boardTypeVO.board_type}" name="board_type" type="text" class="form-control" id="board_type" placeholder="게시판타입을 입력해 주세요" required>
+                <input readonly value="${boardTypeVO.board_type}" name="board_type" type="text" class="form-control" id="board_type" placeholder="게시판타입을 입력해 주세요" required>
               </div>
               <div class="form-group">
                 <label for="board_name">게시판이름</label>
