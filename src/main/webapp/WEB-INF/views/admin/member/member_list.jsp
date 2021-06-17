@@ -55,7 +55,7 @@
           <!-- /.card-header -->
           <div class="card-body table-responsive p-0">
             <table class="table table-hover">
-              <!-- 줄바꿈않할때 다음 클래스추가 text-nowrap  -->
+              <!-- 줄바꿈 안할때 다음 클래스추가 text-nowrap  -->
               <thead>
                 <tr>
                   <th class="text-center">사용자ID</th>
@@ -78,7 +78,7 @@
                   <td><c:out value="${memberVO.user_id}" /></td>
                   <td><c:out value="${memberVO.user_name}" /></td>
                   <td><c:out value="${memberVO.email}" /></td>
-                  <td>${memberVO.levels}</td>
+                  <td><span class="badge badge-danger">${memberVO.levels}</span></td>
                   <td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss.SSSS" value="${memberVO.reg_date}"/></td>
                 </tr>
                 </c:forEach>
