@@ -4,22 +4,45 @@ import java.util.Date;
 
 /**
  * 이 클래스는 게시물 CRUD에 필요한 멤버변수(필드)가 정의된 클래스 입니다.
- * 목적은 데이터 변수 값 이동시 Get/Set 작업이 주 목적입니다.
+ * 목적은 데이터 변수값 이동시 Get/Set 작업이 주 목적입니다.
  * @author 성한솔
  *
  */
 public class BoardVO {
 	//멤버변수 생성
-	private Integer bno; //게시판 고유번호 PK
-	private String title; //게시물 제목
-	private String content; //글내용
-	private String writer; //작성자ID
-	private Integer view_count; //글조회수 카운터
-	private Integer reply_count; //댓글 카운트
+	private Integer bno;//PK
+	private String title;
+	private String content;
+	private String writer;
+	private Integer view_count;
+	private Integer reply_count;
 	private Date reg_date;
 	private Date update_date;
-	private String board_type; //FK
-	//디버그용 toString
+	private String board_type;//FK
+	//private String save_file_name; 첨부파일이 1개 이상일수 있기 때문에...
+	//게시물 1개 등록시, 첨부파일 1개이상 필요합니다. 그런데, 1개의 필드에 여러개를 입력할 순 없습니다.
+	//그래서, DB(테이블)에는 없는 가상 멤버변수(필드)를 2개 만듭니다.
+	private String[] save_file_names;//Null가능
+	private String[] real_file_names;//Null가능
+	
+	
+	public String[] getSave_file_names() {
+		return save_file_names;
+	}
+
+	public void setSave_file_names(String[] save_file_names) {
+		this.save_file_names = save_file_names;
+	}
+
+	public String[] getReal_file_names() {
+		return real_file_names;
+	}
+
+	public void setReal_file_names(String[] real_file_names) {
+		this.real_file_names = real_file_names;
+	}
+
+	//디버그용 toString()생성
 	@Override
 	public String toString() {
 		return "BoardVO [bno=" + bno + ", title=" + title + ", content=" + content + ", writer=" + writer
@@ -30,7 +53,7 @@ public class BoardVO {
 	//Get,Set 생성
 	public Integer getBno() {
 		return bno;
-	}
+	}	
 	public void setBno(Integer bno) {
 		this.bno = bno;
 	}
