@@ -55,7 +55,7 @@
           <!-- /.card-header -->
           <div class="card-body table-responsive p-0">
             <table class="table table-hover">
-              <!-- 줄바꿈 안할때 다음 클래스추가 text-nowrap  -->
+              <!-- 줄바꿈않할때 다음 클래스추가 text-nowrap  -->
               <thead>
                 <tr>
                   <th class="text-center">사용자ID</th>
