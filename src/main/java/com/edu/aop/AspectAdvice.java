@@ -44,7 +44,13 @@ public class AspectAdvice {
 		PageVO pageVO = null;
 		//조인포인트리스트의 객체들의 메서드의 Arguments(매개변수)를 뽑아냄 
 		for(Object object:pjp.getArgs()) {
-			
+			if(object instanceof PageVO) {
+				pageVO = (PageVO) object;
+			}
+		}
+		if(request != null) {//jsp에서 Get,Post 있을때,
+			//세션값을 발생시킴
+			HttpSession session = request.getSession();
 		}
 		return null;
 	}
