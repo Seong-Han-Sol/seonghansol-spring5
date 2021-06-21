@@ -54,10 +54,16 @@
 	<context:component-scan base-package="com.edu.dao"/>
 	<context:component-scan base-package="com.edu.service"/>
 	<context:component-scan base-package="com.edu.aop"/>
-
 	<!-- AOP 프록시 저장소 추가 -->
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 	<aop:config></aop:config>
 	<!-- 트랜잭션 설정 -->
-	<!-- 파일 업로드 설정 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<!-- 파일 업로드 설정 업로드 폴더위치 전역변수로 생성 bean을 실행시 초기값을 지정 constructor사용-->
+	<bean id="uploadPath" class="java.lang.String">
+		<constructor-arg value="c:\\upload"/>
+	</bean>
 </beans>
