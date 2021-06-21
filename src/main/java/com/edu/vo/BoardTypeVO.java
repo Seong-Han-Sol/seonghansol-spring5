@@ -2,8 +2,8 @@ package com.edu.vo;
 /**
  * 이 클래스는 게시판생성관리의 데이터를 입/출력 임시저장하는 기능의 클래스
  * 이 클래스를 이용해서 AspectOrientiedPrograming(관점지향프로그래밍) 실습
- * @author 성한솔
- * 
+ * @author 김일국
+ *
  */
 public class BoardTypeVO {
 	//멤버변수 생성
