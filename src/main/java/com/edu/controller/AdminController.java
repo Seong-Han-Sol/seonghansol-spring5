@@ -40,19 +40,19 @@ public class AdminController {
 	@Inject
 	private IF_BoardTypeService boardTypeService;
 	@Inject
-	private IF_BoardService boardService; //DI으로 스프링빈을 주입해서 객체로 생성
-	//게시물 목록은 폼으로 접근하지 않고 URL로 접근하기 때문에 GET방식으로 처리
+	private IF_BoardService boardService;//DI으로 스프링빈을 주입해서 객체로 생성
+	//게시물 목록은 폼으로 접근하지 않고 URL로 접근하기 때문에 GET방식으로처리
 	@RequestMapping(value="/admin/board/board_list", method=RequestMethod.GET)
-	public String board_list(@ModelAttribute("PageVO")PageVO pageVO, Model model) throws Exception {
+	public String board_list(@ModelAttribute("pageVO")PageVO pageVO, Model model) throws Exception {
 		//페이징처리를 위한 기본값 추가
-		if(pageVO.getPage() ==null) {
+		if(pageVO.getPage() == null) {
 			pageVO.setPage(1);
 		}
-		pageVO.setPerPageNum(5); //UI하단에서 보여줄 페이징 번호 크기
-		//토탈 카운트를 구하기전 2개의 값이 필수로 필요 (아래)
-		pageVO.setQueryPerPageNum(5);
+		pageVO.setPerPageNum(5);//UI하단에서 보여줄 페이징 번호 크기
+		pageVO.setQueryPerPageNum(5);//토탈 카운트를 구하기전 필수로 필요
 		pageVO.setTotalCount(boardService.countBoard(pageVO));
-		model.addAttribute("listBoardVO",null);
+		
+		model.addAttribute("listBoardVO", boardService.selectBoard(pageVO));
 		return "admin/board/board_list";//.jsp생략
 	}
 	//jsp에서 게시판생성관리에 Get/Post 접근할때 URL을 bbs_type로 지정합니다.
