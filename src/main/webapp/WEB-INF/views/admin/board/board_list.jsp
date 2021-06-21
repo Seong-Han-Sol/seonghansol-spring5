@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -44,7 +44,8 @@
                     <button type="submit" class="btn btn-default">
                       <i class="fas fa-search"></i>
                     </button>
-                  </div>                                
+                  </div>
+                  <input type="hidden" value="${pageVO.board_type}" name="board_type">                                
                 </form>
               </div>
               <!-- //내용검색 폼 -->
@@ -58,20 +59,20 @@
                 <tr>
                   <th class="text-center">BNO</th>
                   <th class="text-center">BOARD_TYPE</th>
-                  <th class="text-center col-6">TITLE</th>
+                  <th class="text-center">TITLE</th>
                   <th class="text-center">WRITER</th>
                   <th class="text-center">REG_DATE</th>
                 </tr>
               </thead>
               <tbody>
                 <!-- 아래 링크주소에 jsp에서 프로그램처리예정 -->
-                <c:forEach var="boardVO" items="listBoardVO">
-                <tr style="cursor: pointer;" onclick="location.replace('board_view.html?bno=183');">
-                  <td>183</td>
-                  <td>NOTICE</td>
-                  <td>chicken flank fatback doner.</td>
-                  <td><span class="tag tag-success">Approved</span></td>
-                  <td>11-7-2014</td>
+                <c:forEach var="boardVO" items="${listBoardVO}">
+                <tr style="cursor: pointer;" onclick="location.replace('/admin/board/board_view?bno=${boardVO.bno}');">
+                  <td>${boardVO.bno}</td>
+                  <td>${boardVO.board_type}</td>
+                  <td>${boardVO.title}</td>
+                  <td>${boardVO.writer}</td>
+                  <td><fmt:formatDate pattern="yyyy-MM-dd hh:MM:ss.SSSS" value="${boardVO.reg_date}"/></td>
                 </tr>
                 </c:forEach>
                 
@@ -84,31 +85,19 @@
         <!-- //콘텐츠 내용 -->
         <!-- 페이징 처리 -->
         <div class="col-12 text-right">
-          <a href="board_write.html" class="btn btn-primary mb-3">글쓰기</a>
+          <a href="/admin/board/board_insert" class="btn btn-primary mb-3">글쓰기</a>
           <ul class="pagination justify-content-center">
-              <li class="paginate_button page-item previous disabled" id="example2_previous">
-                <a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+              <li class="paginate_button page-item previous ${pageVO.prev==false?'disabled':''}" id="example2_previous">
+                <a href="/admin/board/board_list?page=${pageVO.startPage-1}&search_type=${pageVO.search_type}&search_keyword=${pageVO.search_keyword}" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
               </li>
-              <li class="paginate_button page-item active">
-                <a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">1</a>
+              <!-- 사용기준: 향상된for(주로사용-시스템부담이 작아짐), 일반for문(시작,끝값이 정해진 로직에서 사용) -->
+              <c:forEach begin="${pageVO.startPage}" end="${pageVO.endPage}" step="1" var="idx">
+              <li class="paginate_button page-item ${pageVO.page==idx?'active':''}">
+                <a href="/admin/board/board_list?page=${pageVO.page}&search_type=${pageVO.search_type}&search_keyword=${pageVO.search_keyword}" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">${idx}</a>
               </li>
-              <li class="paginate_button page-item ">
-                <a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0" class="page-link">2</a>
-              </li>
-              <li class="paginate_button page-item ">
-                <a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0" class="page-link">3</a>
-              </li>
-              <li class="paginate_button page-item ">
-                <a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0" class="page-link">4</a>
-              </li>
-              <li class="paginate_button page-item ">
-                <a href="#" aria-controls="example2" data-dt-idx="5" tabindex="0" class="page-link">5</a>
-              </li>
-              <li class="paginate_button page-item ">
-                <a href="#" aria-controls="example2" data-dt-idx="6" tabindex="0" class="page-link">6</a>
-              </li>
-              <li class="paginate_button page-item next" id="example2_next">
-                <a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link">Next</a>
+              </c:forEach>
+              <li class="paginate_button page-item next ${pageVO.next==false?'disabled':''}" id="example2_next">
+                <a href="/admin/board/board_list?page=${pageVO.endPage+1}&search_type=${pageVO.search_type}&search_keyword=${pageVO.search_keyword}" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Next</a>
               </li>
           </ul>
         </div>
