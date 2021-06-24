@@ -25,12 +25,103 @@
 - ======== 2주간 작업내역 끝(07.16금) ===================
 - 헤로쿠 클라우드에 배포할때, 매퍼폴더의 mysql폴더내의 쿼리에 now()를 date_add(now(3), interval 9 HOUR) 변경예정.(이유는 DB서버 타임존 미국이기 때문에)
 
-#### 20210621(월) 작업예정.
-- 관리자단 게시물관리 CRUD 처리(4.파일업로드구현,5.트랜잭션구현).
-- @Service 클래스 마무리.
+#### 20210625(금) 작업예정.
+- 게시물관리 Create 작업 마무리.
+- 관리자단 댓글관리 CRUD 처리(6.RestAPI서버구현,JUnit대신에 크롬부메랑으로 테스트)
+- 스프링시큐리티 로그인및 권한체크 설정 후 사용자단 로그인 구현 예정.
+- 사용자단 회원가입, 수정, 탈퇴 JSP기능 추가예정.
+
+#### 20210624(목) 작업.
+[복습]오늘 작업한 첨부파일 처리도 데이터 변수의 이동상태나 변수값이 제일 중요합니다.
+핵심은 아래와 같습니다. Attach테이블에서 select쿼리 결과 테이터 구조는 아래와 같습니다.
+List<AttachVO> delFiles = [
+{"save_file_name":"abc1.jpg","real_file_name":"한글이미지1.jpg","bno":"bno10"},
+{"save_file_name":"abc2.jpg","real_file_name":"한글이미지2.jpg","bno":"bno10"}
+]
+데이터베이스에서 가져올때, 위와 같이 구조가 발생됩니다. 구조를 정리하면 아래와 같습니다.
+대괄호 List[VO배열] 안에 
+중괄호 VO{1개레코드 } 안에
+콜론으로 "키":"값" 구분 후 콥마, 로 멤버변수들을 구분합니다.
+
+- file.getBytes() 설명 포함 board_update메서드 리뷰 후 수업진행.
+- 작업순서: CRUD -> U 작업OK.
+- Create작업: 
+- update: updateBoard(서비스)참조 -> board_update(컨트롤러)작업+jsp작업
+- 업데이트 이후엔 파일업로드 구현 후 /download 컨트롤러 실습OK.
+
+#### 20210623(수) 작업.
+- 시큐어코딩 방지메서드: <(O|o)bject... -> &lt;object (목적은 코딩태그를 특수문자로 변경 하는 메서드)
+- 실행되지 않는 코드가 생성됨.
+- 세션 사용법: 겟(Get),셋(Set),삭제(Remove)하는 방법
+- 세션 생성법: session.setAttribute("세션변수명","값");//로그인시 세션변수 생성.
+- 세션 값불러오기: session.getAttribute("세션변수명");
+- 세션 삭제하기: session.removeAttribute("세션변수명");//변수삭제
+- 전체세션삭제하기: session.invalidate();//전체 세션변수명을 삭제 = 세션초기화 = 로그아웃시 사용.
+- 수업전 작업예정: ie11이하계열에서 한글 검색 후 페이지 선택시 400에러발생(크롬계열은 문제없음)-AOP로처리.
+
+```
+내일 수업전 실숩 순서는 아래와 같습니다.
+아래 순서대로 하시고, 개선된 기능은 수업시 알려 드리겠습니다.^^
+ie에서 한글검색과 페이징처리 함께사용시 에러상황 처리
+AOP로 처리 되었습니다.
+-#1 AOP에서 아래내용 추가
+String search_keyword = null;
+search_keyword = pageVO.getSearch_keyword();
+if(search_keyword != null) {//최초로 세션변수가 발생
+   session.setAttribute("session_search_keyword", search_keyword);
+}
+if(session.getAttribute("session_search_keyword") != null) {
+   search_keyword = (String) session.getAttribute("session_search_keyword");
+   if(pageVO != null) {//Set은 pageVO가 null아닐 경우만 실행되도록
+      pageVO.setSearch_keyword(search_keyword);//검색목표달성:여기서 항상 값을 가져가도록 구현됩니다.
+   }
+}
+-#2 member와 board 뷰jsp파일에서 아래 내용을 일괄 삭제
+&search_keyword=${pageVO.search_keyword}
+-#3 AdminController에서 아래 내용 일괄 삭제
++"&search_keyword="+pageVO.getSearch_keyword()
+-#4. 기능개선 추가
+AspectAdvice클래스 PageVO가 메서드매개변수 인스턴트인 조건시 추가
+if(pageVO.getPage() == null) {
+ session.removeAttribute(“session_search_keyworb”);
+}
+또는
+검색창에 ${session_search_keyword}추가
+그리고, include폴더 header.jsp 에 링크값에 ?search_type= 추가
+```
+#### 20210622(화) 작업.
+- 수업시작전 아래 내용 확인
+
+```
+pageVO 객체가 발생하지 않는 곳에는 에러가 발생됩니다. 에러발생시 수정하실 부분은 아래와 같습니다.
+[수정전-아래]
+- pageVO.setBoard_type(board_type);//검색목표달성:...
+[수정후-아래]
+if(pageVO != null) {
+   pageVO.setBoard_type(board_type);//검색목표달성:...
+}
+```
+- 정방향으로 개발시작.VO제작.->매퍼쿼리제작.->DAO클래스제작->Service클래스제작.->Controller+jsp
+- 위 내용중 게시물 관리에서 CRUD 컨트롤러 + jsp 처리(4.파일업로드구현)
+- 작업순서: RUD -> RD 작업OK.
+- Read: readBoard(서비스)참조 -> board_view(컨트롤러)작업+jsp작업
+- 관리자단 댓글관리 CRUD 처리(6.RestAPI서버구현,JUnit대신에 크롬부메랑으로 테스트)
+- 에러상황: ie11이하계열에서 한글 검색 후 페이지 선택시 400에러발생(크롬계열은 문제없음)-AOP로처리가능한지검토
+
+#### 20210621(월) 작업.
+- 다음주 스프링시큐리티: 로그인정보가 발생=세션 , 즉, 로그인정보(세션)이없으면, 홈페이지가도록 작업 예정.
+- 핵심은 Session 클래스객체 사용한 내용.
+- 관리자단 게시물관리 CRUD 처리(4.파일업로드구현,5.트랜잭션구현OK).
+- @Service 클래스 마무리OK.
+- 정방향으로 개발시작.VO제작.->매퍼쿼리제작.->DAO클래스제작->Service클래스제작.->Controller+jsp
+- 게시물관리 리스트까지 작업OK.
+- 트랜잭션? 여러개의 메서드를 1개 처럼 처리하게 구현하는 애노테이션을 사용.-목적:데이터무결성유지.
+- 1단어로 표시: All or NotAll(모두실행되던지, 에러발생 모두 실행이 되지 않던지)
+- root-context와 servlet-context설정파일에 트랙잭션과 파일업로드설정처리OK.
 - @Controller 클래스 추가(파일업로드/다운로드구현) > jsp 화면처리
 - @Service 트랜잭션 기능 추가.
-- 관리자단 댓글관리 CRUD 처리(6.RestAPI서버구현,JUnit대신에 크롬부메랑으로 테스트)
+- @Aspect 기능 마무리OK.
+- AOP기능중 Aspect기능의 설정은 servlet-context.xml에 위치필수.
 
 #### 20210618(금) 작업.
 - 검색처리는 멤버쿼리에서 작성한 내용 붙여넣고, 다중게시판용 필드조회조건 board_type 추가.
