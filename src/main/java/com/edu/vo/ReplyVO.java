@@ -7,4 +7,5 @@ package com.edu.vo;
 public class ReplyVO {
 	Integer rno;//자동증가 고유번호
 	String reply_text;
+	
 }
