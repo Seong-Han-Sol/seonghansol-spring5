@@ -65,7 +65,7 @@ public class DataSourceTest {
 		memberVO.setLevels("ROLE_ADMIN");
 		memberVO.setPoint(100);
 		memberVO.setUser_name("최고관리자");
-		memberVO.setUser_pw("");//입력하지 않으면, 업데이트에서 제외
+		memberVO.setUser_pw("1234");//입력하지 않으면, 업데이트에서 제외
 		//메서드내 적용된 객체변수 생성
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		//스프링5시큐리티 암호화 적용로직(아래)
@@ -158,9 +158,9 @@ public class DataSourceTest {
 	public void oldQueryTest() throws Exception {
 		//스프링빈을 사용하지 않을때 예전 방식: 코딩테스트에서는 스프링설정을 안쓰고, 직접 DB 아이디/암호 입력
 		Connection connection = null;
-		connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/XE","XE","apmsetup");
+		connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/XE","XE2","apmsetup");
 		logger.debug("데이터베이스 직접 접속이 성공 하였습니다. DB종류는 "+ connection.getMetaData().getDatabaseProductName());
-		//직접쿼리를 날립니다. 날리기전 쿼리문장 객체생성statement
+		//직접쿼리를 날림 날리기전 쿼리문장 객체생성statement
 		Statement stmt = connection.createStatement();
 		//위 쿼리문장객체를 만드는 이유? 보안(SQL인젝션공격을 방지)
 		//stmt객체가 없으면, 개발자가 SQL인젝션 방지코딩을 넣어야 합니다.
