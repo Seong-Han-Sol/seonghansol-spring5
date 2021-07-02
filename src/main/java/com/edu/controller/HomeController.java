@@ -23,7 +23,6 @@ import com.edu.vo.MemberVO;
  * 스프링에서 관리하는 클래스를 스프링빈(콩) = 스프링빈을 명시 @Controller 애노테이션
  * Beans(콩들) 그래프로 이 프로젝트의 규모를 확인가능.
  * 스프링이 관리하는 클래스=스프링빈은 파일아이콘에 S가 붙습니다. 
- * @author 성한솔
  */
 
 @Controller
@@ -45,9 +44,7 @@ public class HomeController {
 	
 	//404파일 에러 처리 GET 호출 추가
 	@RequestMapping(value="/home/error/error_404", method=RequestMethod.GET)
-	public String error_404(HttpServletRequest request,Model model) {
-		//이전페이지로 이동에 사용될 변수 추가
-		model.addAttribute("prevPage", request.getHeader("Referer"));
+	public String error_404() {
 		return "home/error/error_404";//.jsp생략
 	}
 	//회원가입 처리 호출 POST방식
