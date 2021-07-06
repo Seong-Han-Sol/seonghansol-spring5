@@ -24,7 +24,7 @@ import com.edu.vo.ReplyVO;
 /**
  * 이 클래스는 RestFull 서비스의 Endpoint(게이트웨이,URL매핑)를 만드는 클래스임.
  * 간단하게 말하면, RestAPI서버 만드는 클래스 입니다.
- * @author 성한솔
+ * @author 김일국
  *
  */
 @RestController
@@ -135,7 +135,9 @@ public class ReplyController {
 		}
 		//======================================================
 		} catch(Exception e) {
-			result = new ResponseEntity<Map<String,Object>>(HttpStatus.INTERNAL_SERVER_ERROR);
+			Map<String,Object> resultMap = new HashMap<String,Object>();
+			resultMap.put("errorMsg", e.getMessage());
+			result = new ResponseEntity<Map<String,Object>>(resultMap,HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return result;
 		/* Json데이터 출력 예 
