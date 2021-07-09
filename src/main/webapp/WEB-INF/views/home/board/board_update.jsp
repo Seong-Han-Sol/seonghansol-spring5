@@ -27,7 +27,7 @@
 					</li>
 					<li class="clear">
 						<label for="name_lbl" class="tit_lbl pilsoo_item">작성자명</label>
-						<div class="app_content"><input readonly value="${session_userid}" type="text" name="writer" class="w100p" id="name_lbl" placeholder="이름을 입력해주세요" required/></div>
+						<div class="app_content"><input readonly value="${boardVO.writer}" type="text" name="writer" class="w100p" id="name_lbl" placeholder="이름을 입력해주세요" required/></div>
 					</li>
 					<li class="clear">
 						<label for="file_lbl" class="tit_lbl">첨부파일</label>
@@ -87,6 +87,7 @@
 			</fieldset>
 			<input name="board_type" value="${session_board_type}" type="hidden" >
 			<input name="page" value="${pageVO.page}" type="hidden">
+			<input name="bno" value="${boardVO.bno}" type="hidden">
 		</form>
 		<!-- //폼영역 -->
 	</div>
