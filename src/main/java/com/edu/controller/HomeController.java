@@ -36,8 +36,8 @@ import com.edu.vo.PageVO;
  * 웹브라우저의 요청사항을 view단(jsp)에 연결시켜주는 클래스 @Controller.
  * 스프링에서 관리하는 클래스를 스프링빈(콩) = 스프링빈을 명시 @Controller 애노테이션
  * Beans(콩들) 그래프로 이 프로젝트의 규모를 확인가능.
- * 스프링이 관리하는 클래스=스프링빈은 파일아이콘에 S가 붙습니다. 
- * @author 성한솔
+ * 스프링이 관리하는 클래스=스프링빈은 파일아이콘에 S가 붙습니다.
+ * @author 성한솔 
  */
 
 @Controller
@@ -304,11 +304,12 @@ public class HomeController {
 		return "home/member/mypage";//.jsp생략
 	}
 	//사용자단 로그인 폼호출 GET, 로그인POST처리는 컨트롤러에서 하지않고 스프링시큐리티로 처리
-	@RequestMapping(value="/login_form", method=RequestMethod.GET)
-	public String login_form() throws Exception {
-		
-		return "home/login";//.jsp생략
-	}
+	//네아로 로그인때문에 LoginController클래스로 분리해서 사용합니다. 그래서 아래는 주석처리
+//	@RequestMapping(value="/login_form", method=RequestMethod.GET)
+//	public String login_form() throws Exception {
+//
+//		return "home/login";//.jsp생략
+//	}
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String homepage(Model model) throws Exception { //콜백메스드,자동실행됨.
 //		String jspVar = "@서비스(DB)에서 처리한 결과";
