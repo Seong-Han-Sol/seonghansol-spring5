@@ -36,8 +36,8 @@ import com.edu.vo.PageVO;
  * 웹브라우저의 요청사항을 view단(jsp)에 연결시켜주는 클래스 @Controller.
  * 스프링에서 관리하는 클래스를 스프링빈(콩) = 스프링빈을 명시 @Controller 애노테이션
  * Beans(콩들) 그래프로 이 프로젝트의 규모를 확인가능.
- * 스프링이 관리하는 클래스=스프링빈은 파일아이콘에 S가 붙습니다.
- * @author 성한솔 
+ * 스프링이 관리하는 클래스=스프링빈은 파일아이콘에 S가 붙습니다. 
+ * @author 성한솔
  */
 
 @Controller
@@ -337,7 +337,8 @@ public class HomeController {
 		pageVO.setQueryPerPageNum(5);//공지사항5개,보드타입 필요(세션으로 처리않됨)
 		pageVO.setBoard_type("notice");
 		model.addAttribute("latestNotice", boardService.selectBoard(pageVO));//공지사항 최근게시물
-		return "home/index";//확장자가 생략 .jsp가 생략되어 있음.
+		//return "home/index";//타일즈 적용 전
+		return "index.tiles";//타일즈 적용 후 tiles폴더안 index.jsp호출
 	}
 	
 }
